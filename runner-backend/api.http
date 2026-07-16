@@ -1,0 +1,47 @@
+### Register a new test user (Successful Case)
+POST http://localhost:5000/api/auth/register
+Content-Type: application/json
+
+{
+  "email": "testrunner@example.com",
+  "password": "secure_password123",
+  "confirmPassword": "secure_password123"
+}
+
+### Register a new test user (Intended Failure - Password Mismatch)
+POST http://localhost:5000/api/auth/register
+Content-Type: application/json
+
+{
+  "email": "mismatchrunner@example.com",
+  "password": "correct_password123",
+  "confirmPassword": "incorrect_password321"
+}
+
+### Attempt to create a run WITHOUT a token (Should return 401 Unauthorized)
+POST http://localhost:5000/api/runs
+Content-Type: application/json
+
+{
+  "title": "Morning 5K",
+  "startTime": "2026-07-16T12:00:00Z"
+}
+
+### Create a run WITH a valid token
+POST http://localhost:5000/api/runs
+Content-Type: application/json
+Authorization: Bearer YOUR_COPIED_JWT_TOKEN_HERE
+
+{
+  "title": "Morning 5K",
+  "startTime": "2026-07-16T12:00:00Z",
+  "totalDistance": 5000,
+  "totalDuration": 1500,
+  "route": [
+    {
+      "latitude": 43.4516,
+      "longitude": -80.4925,
+      "timestamp": "2026-07-16T12:00:00Z"
+    }
+  ]
+}

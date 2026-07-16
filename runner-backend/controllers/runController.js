@@ -2,11 +2,10 @@ const Run = require('../models/Run');
 
 exports.saveRun = async (req, res) => {
     try {
-        const { user, title, startTime, endTime, totalDistance, totalDuration, route, weatherCondition, airQualityIndex } = req.body;
+        const { title, startTime, endTime, totalDistance, totalDuration, route, weatherCondition, airQualityIndex } = req.body;
 
-        // Create a new run document from payload
         const newRun = new Run({
-            user,
+            user: req.user,
             title,
             startTime,
             endTime,

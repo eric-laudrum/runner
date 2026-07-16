@@ -4,7 +4,16 @@ const User = require('../models/user');
 
 exports.registerUser = async (req, res) => {
     try {
-        const {email, password} = req.body;
+        const {email, password, confirmPassword} = req.body;
+
+        // Verify all fields are filled
+        if (!email || !password || !confirmPassword) {
+            return res.status(400).json({ message: 'Error: All fields are required' });
+        }
+        // Verify password matches confirmation
+        if (password !== confirmPassword) {
+            return res.status(400).json({ message: 'Error: Passwords do not match' });
+        }
 
         const existingUser = await User.findOne({email});
 
