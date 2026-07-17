@@ -10,7 +10,11 @@ const runRoutes = require('./routes/runRoutes');
 
 // Parse Json payloads and enable cross origin requests
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 app.use('/api/auth', authRoutes);
 app.use('/api/runs', runRoutes);

@@ -6,11 +6,10 @@ exports.registerUser = async (req, res) => {
     try {
         const {email, password, confirmPassword} = req.body;
 
-        // Verify all fields are filled
         if (!email || !password || !confirmPassword) {
             return res.status(400).json({ message: 'Error: All fields are required' });
         }
-        // Verify password matches confirmation
+
         if (password !== confirmPassword) {
             return res.status(400).json({ message: 'Error: Passwords do not match' });
         }
@@ -54,7 +53,6 @@ exports.loginUser = async( req, res) => {
             return res.status(400).json({ message: 'Invalid credentials' });
         }
 
-        // Generate stateless auth token using secret key
         const token = jwt.sign(
             { userId: user._id },
             process.env.JWT_SECRET || 'fallback_secret',
